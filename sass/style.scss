@@ -4,10 +4,14 @@
 
 $color-light: #fff;
 $color-dark: #444;
+$color-black: black;
 
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
+
+$transition: 1s all;
+$transition-slow: 2s all;
 
 /* Global */
 
@@ -44,6 +48,7 @@ body {
 /* Layout */
 
 .wrapper {
+  height: 520px;
   display: flex;
   margin-left: 10px;
 }
@@ -80,6 +85,14 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  li a {
+    text-decoration: none;
+    color: $color-black;
+    transition: 0.5s font-size;
+  }
+  li a:hover {
+    font-size: 20px;
+  }
   .active {
     font-weight: bold;
   }
@@ -88,23 +101,54 @@ body {
 .list-horizontal {
   li {
     display: inline-block;
+
+    a {
+      transition: $transition;
+    }
+
+    a:hover {
+      font-size: 16px;
+      color: green;
+    }
   }
+}
+
+/* Tags */
+
+.tags {
+  height: 160px;
 }
 
 /* Authors */
 
 .authors {
+  height: 160px;
   li {
-    margin-bottom: 12px;
+ 
   }
 }
 
 /* Post */
 
+.posts {
+position: relative;
+overflow-x: hidden;
+overflow-y: auto; 
+}
+
 .post {
-  display: none;
+  position: absolute;
+  padding: 36px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: scale(0.7);
+  z-index: 90;
+  transition: $transition-slow;
   &.active {
-    display: block;
+    opacity: 1;
+    transform: scale(1);
+    z-index: 100;
   }
 }
 
@@ -116,5 +160,41 @@ body {
   display: flex;
   p {
     margin: 0 10px 0 0;
+  }
+}
+
+/* Footer */
+
+footer {
+  width: 100%;
+  height: 28px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: $color-black;
+    font-size: 18px;
+    transition: $transition;
+
+    i:first-of-type {
+      border-radius: 50%;
+      transition: $transition;
+  
+    }
+
+    i:last-of-type:hover {
+
+    }
+  }
+
+  a:hover {
+    transform: scale(1.2) rotate(-10deg);
+  }
+
+  a:hover i:first-of-type {
+    background-color: lightgreen;
   }
 }
