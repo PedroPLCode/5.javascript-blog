@@ -5,12 +5,13 @@
 $color-light: #fff;
 $color-dark: #444;
 $color-black: black;
+$color-green: green;
 
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
 
-$transition: 1s all;
+$transition-fast: 1s all;
 $transition-slow: 2s all;
 
 /* Global */
@@ -67,6 +68,9 @@ body {
   padding: 40px;
   border: 1px solid $color-dark;
   border-radius: 5px;
+  height: 75vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Logo */
@@ -102,13 +106,9 @@ body {
   li {
     display: inline-block;
 
-    a {
-      transition: $transition;
-    }
-
     a:hover {
       font-size: 16px;
-      color: green;
+      color: $color-green;
     }
   }
 }
@@ -123,20 +123,15 @@ body {
 
 .authors {
   height: 160px;
-  li {
- 
-  }
 }
 
-/* Post */
+/* Posts */
 
 .posts {
 position: relative;
-overflow-x: hidden;
-overflow-y: auto;
 }
 
-/*
+/* JAK SIĘ DOBRAĆ DO STYLÓW SCROLLBARA?
 .posts::-webkit-scrollbar {
   overflow-y: auto; 
 }
@@ -149,7 +144,7 @@ overflow-y: auto;
   left: 0;
   opacity: 0;
   transform: scale(0.7);
-  z-index: 90;
+  z-index: 10;
   transition: $transition-slow;
   &.active {
     opacity: 1;
@@ -184,48 +179,43 @@ footer {
     text-decoration: none;
     color: $color-black;
     font-size: 18px;
-    transition: $transition;
+    transition: $transition-fast;
 
     i:first-of-type {
       border-radius: 50%;
-      transition: $transition;
-  
-    }
-
-    i:last-of-type:hover {
-
+      transition: $transition-fast;
     }
   }
 
   a:hover {
-    transform: scale(1.2) rotate(-10deg);
+    transform: scale(1.2);
   }
 
   a:hover i:first-of-type {
-    background-color: lightgreen;
+    background-color: $color-green;
   }
 }
 
-/* Media - mobile phone screens */
+/* Media - mobile phones and tablets screens */
 
-@media (min-width: 200px) and (max-width: 767px) {
+@media (min-width: 200px) and (max-width: 1024px) {
 
 .wrapper {
   flex-direction: column;
   gap: 12px;
-  height: 1500px;
+  height: 1650px;
 }
 
 .sidebar {
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.posts {
+.sidebar, .posts {
   width: 100%;
+  max-height: 550px;
 }
 
 footer {
