@@ -11,7 +11,7 @@ $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
 
-$transition-fast: 1s all;
+$transition-fast: 0.5s all;
 $transition-slow: 2s all;
 
 /* Global */
@@ -56,6 +56,10 @@ body {
 
 .sidebar {
   flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .posts {
@@ -68,7 +72,7 @@ body {
   padding: 40px;
   border: 1px solid $color-dark;
   border-radius: 5px;
-  height: 75vh;
+  height: auto;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -89,14 +93,20 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+
+  li {
+    transition: $transition-fast;
+  }
+
+  li:hover {
+    transform: scale(1.2);
+  }
+
   li a {
     text-decoration: none;
     color: $color-black;
-    transition: 0.5s font-size;
   }
-  li a:hover {
-    font-size: 20px;
-  }
+
   .active {
     font-weight: bold;
   }
@@ -204,13 +214,6 @@ footer {
   flex-direction: column;
   gap: 12px;
   height: 1650px;
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .sidebar, .posts {
