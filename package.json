@@ -26,6 +26,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "eslint": "^8.44.0",
     "run-all": "^1.0.1"
   },
   "devDependencies": {
