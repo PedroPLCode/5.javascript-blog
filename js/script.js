@@ -6,6 +6,7 @@ const optArticleSelector = '.post',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorsSelector = '.post-author',
   optTagsListSelector = '.tags',
+  optAuthorsListSelector = '.authors',
   optCloudClassCount = 5,
   optCloudClassPrefix = 'tag-size-';
 
@@ -87,7 +88,6 @@ function calculateTagsParams(tags) {
   const params = {max: 0, min: 999999};
 
   for (let tag in tags) {
-    //console.log(tag + ' razy ' + tags[tag]);
 
     if (tags[tag] > params.max) {
       params.max = tags[tag];
@@ -236,6 +236,12 @@ function addClickListenersToTags(){
 */
 function generateAuthors(){
   const articles = document.querySelectorAll(optArticleSelector);
+  const authorsList = document.querySelector(optAuthorsListSelector);
+  authorsList.innerHTML = '';
+
+  let allAuthorsHtml = '';
+
+  let allAuthors = {}; //nowe
 
   for (let article of articles) {
     const authorWrapper = article.querySelector(optArticleAuthorsSelector);
@@ -243,6 +249,16 @@ function generateAuthors(){
     const articleAuthor = article.getAttribute("data-author");
     const linkHtml = '<a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>';
     authorWrapper.innerHTML = linkHtml;
+
+    const singleLinkHtml = '<li><a href="#author-' + articleAuthor + '"><span class="author-name">' + articleAuthor + '</span></a></li>';
+    //console.log(allAuthorsHtml);
+
+    if(!allAuthors.hasOwnProperty(singleLinkHtml)){ //nowe
+      allAuthorsHtml += singleLinkHtml;
+      allAuthors.articleAuthor = singleLinkHtml; // TU POPRAWIĆ
+    }
+
+    authorsList.innerHTML = allAuthorsHtml;
   }
 }
 
