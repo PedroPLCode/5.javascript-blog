@@ -78,7 +78,30 @@ function generateTitleLinks(customSelector = ''){
 
 
 /**
- * create a new variable allTags with an empty array
+ *
+ */
+function calculateTagsParams(tags) {
+  const params = {max: 0, min: 999999};
+
+  for (let tag in tags) {
+    //console.log(tag + ' razy ' + tags[tag]);
+
+    if (tags[tag] > params.max) {
+      params.max = tags[tag];
+    }
+
+    if (tags[tag] < params.min) {
+      params.min = tags[tag];
+    }
+
+  }
+
+  return params;
+}
+
+
+/**
+ * create a new variable allTags with an empty object
  * find all articles
  * START LOOP: for every article:
  * * find tags wrapper
@@ -89,7 +112,7 @@ function generateTitleLinks(customSelector = ''){
  * * * generate HTML of the link
  * * * add generated code to html variable
  * * * check if this link is NOT already in allTags
- * * * add generated code to allTags array
+ * * * add tag to allTags object
  * * END LOOP: for each tag
  * * insert HTML of all the links into the tags wrapper
  * END LOOP: for every article
@@ -98,7 +121,7 @@ function generateTitleLinks(customSelector = ''){
 */
 function generateTags(){
   const articles = document.querySelectorAll(optArticleSelector);
-  let allTags = []; //nowe
+  let allTags = {}; //nowe
 
   for (let article of articles) {
     const tagsWrapper = article.querySelector(optArticleTagsSelector);
@@ -111,8 +134,10 @@ function generateTags(){
       const linkHtml = '<li><a href="#tag-' + singleTag + '">' + singleTag + '</a></li>';
       html = html + linkHtml;
 
-      if(allTags.indexOf(linkHtml) == -1){ //nowe
-        allTags.push(linkHtml); //nowe
+      if(!allTags.hasOwnProperty(singleTag)){ //nowe
+        allTags[singleTag] = 1; //nowe
+      } else {
+        allTags[singleTag]++; //nowe
       }
     }
 
@@ -120,7 +145,16 @@ function generateTags(){
   }
 
   const tagList = document.querySelector(optTagsListSelector); //nowe
-  tagList.innerHTML = allTags.join(' '); //nowe
+  //tagList.innerHTML = allTags.join(' '); //nowe
+  //console.log(allTags);
+  let allTagsHtml = ''; //nowe
+  const tagsParams = calculateTagsParams(allTags); //nowe
+  console.log('tagsParams: ', tagsParams); //nowe
+
+  for (let singleTag in allTags) { //nowe
+    allTagsHtml += '<li><a href="#tag-' + singleTag + '">' + singleTag + '</a></li>' + ' (' + allTags[singleTag] + ') '; //nowe
+  } //nowe
+  tagList.innerHTML = allTagsHtml; //nowe
 }
 
 
