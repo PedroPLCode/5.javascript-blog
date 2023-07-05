@@ -145,7 +145,39 @@ body {
 /* Tags */
 
 .tags {
-  height: 160px;
+  height: 64px;
+  font-size: 20px;
+  width: 100%;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 48px;
+
+  li {
+    padding: 0;
+    margin: 0;
+    height: 32px;
+  }
+}
+
+.tag-size-1 {
+  font-size: 60%;
+}
+
+.tag-size-2 {
+  font-size: 70%;
+}
+.tag-size-3 {
+  font-size: 80%;
+}
+.tag-size-4 {
+  font-size: 90%;
+}
+.tag-size-5 {
+  font-size: 100%;
 }
 
 /* Authors */
