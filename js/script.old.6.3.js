@@ -13,17 +13,6 @@ const opts = {
 }
 
 
-function printMessage(msg) {
-	let div = document.createElement('div');
-	div.innerHTML = msg;
-	document.getElementById('messages').appendChild(div);
-}
-
-function clearMessages() {
-	document.getElementById('messages').innerHTML = '';
-}
-
-
 /**
  * Remove class 'active' from all article links,
  * add class 'active' to the clicked link,
@@ -90,7 +79,6 @@ function generateTitleLinks(customSelector = ''){
   for(let link of links){
     link.addEventListener('click', titleClickHandler);
   }
-
 }
 
 
@@ -238,13 +226,9 @@ function tagClickHandler(event){
   if (tag == 'all') {
     console.log('all');
     generateTitleLinks();
-    clearMessages();
-    printMessage('All Tags');
   } else {
     console.log(tag);
     generateTitleLinks('[data-tags~="' + tag + '"]');
-    clearMessages();
-    printMessage('# ' + tag);
   }
 }
 
@@ -358,12 +342,8 @@ function authorClickHandler(event){
   if (author == 'all') {
     console.log('all');
     generateTitleLinks();
-    clearMessages();
-    printMessage('All authors');
   } else {
     generateTitleLinks('[data-author="' + author + '"]');
-    clearMessages();
-    printMessage('# ' + author);
   }
 }
 
@@ -391,6 +371,3 @@ generateTitleLinks();
 addClickListenersToTags();
 
 addClickListenersToAuthors();
-
-clearMessages();
-printMessage('All articles');
