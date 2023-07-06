@@ -35,7 +35,7 @@
                               </ul>
                             </div>
                         </article>
-                        <article class="post" id="article-2" data-tags="news code" data-author="Theo Tabby">
+                        <article class="post" id="article-2" data-tags="testowy news code" data-author="Theo Tabby">
                             <h3 class="post-title">Article 2</h3>
                             <p class="post-author"></p>
                             <div class="post-content">
@@ -49,7 +49,7 @@
                                 </ul>
                             </div>
                         </article>
-                        <article class="post" id="article-3" data-tags="news reviews design" data-author="George Tuxedo">
+                        <article class="post" id="article-3" data-tags="news reviews design testowy" data-author="George Tuxedo">
                             <h3 class="post-title">Article 3</h3>
                             <p class="post-author"></p>
                             <div class="post-content">
@@ -77,7 +77,7 @@
                                 </ul>
                             </div>
                         </article>
-                        <article class="post" id="article-5" data-tags="design reviews" data-author="Marion Berry">
+                        <article class="post" id="article-5" data-tags="design testowy reviews" data-author="Marion Berry">
                             <h3 class="post-title">Article 5</h3>
                             <p class="post-author"></p>
                             <div class="post-content">
@@ -105,7 +105,7 @@
                                 </ul>
                             </div>
                         </article>
-                        <article class="post" id="article-7" data-tags="code news" data-author="Kitty Toebean">
+                        <article class="post" id="article-7" data-tags="testowy code news" data-author="Kitty Toebean">
                             <h3 class="post-title">Article 7</h3>
                             <p class="post-author"></p>
                             <div class="post-content">
@@ -119,7 +119,7 @@
                                 </ul>
                             </div>
                         </article>
-                        <article class="post" id="article-8" data-tags="news design tutorials" data-author="Theo Tabby">
+                        <article class="post" id="article-8" data-tags="news design testowy tutorials" data-author="Theo Tabby">
                             <h3 class="post-title">Article 8</h3>
                             <p class="post-author"></p>
                             <div class="post-content">
@@ -147,7 +147,7 @@
                                 </ul>
                             </div>
                         </article>
-                        <article class="post" id="article-10" data-tags="code design" data-author="George Tuxedo">
+                        <article class="post" id="article-10" data-tags="code design testowy" data-author="George Tuxedo">
                             <h3 class="post-title">Article 10</h3>
                             <p class="post-author"></p>
                             <div class="post-content">
@@ -189,7 +189,7 @@
                                 </ul>
                             </div>
                         </article>
-                        <article class="post" id="article-13" data-tags="design news reviews" data-author="Theo Tabby">
+                        <article class="post" id="article-13" data-tags="design news testowy reviews" data-author="Theo Tabby">
                             <h3 class="post-title">Art 13</h3>
                             <p class="post-author"></p>
                             <div class="post-content">
@@ -253,6 +253,7 @@
                         <h2 class="section-title">Authors</h2>
                         <ul class="list authors">
                         </ul>
+                        <a href="#tag-all" class="section-title show-all"><p>Show all articles</p></a>
                     </aside>
                 </main>
                 <footer>
@@ -277,6 +278,12 @@
         <script id="template-tagcloud-link" type="text/x-handlebars-template">
           {{#each tags}}
           <li><a href="#tag-{{ tag }}" class="{{ className }}">{{ tag }}</a></li>
+          {{/each}}
+        </script>
+
+        <script id="template-authorcloud-link" type="text/x-handlebars-template">
+          {{#each authors}}
+          <li><a href="#author-{{ author }}"><span class="author-name">{{ author }} ({{ count }})</span></a></li>
           {{/each}}
         </script>
 
