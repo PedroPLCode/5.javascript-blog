@@ -1,5 +1,11 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+}
+
 const opts = {
   ArticleSelector: '.post',
   TitleSelector: '.post-title',
@@ -79,7 +85,10 @@ function generateTitleLinks(customSelector = ''){
   for (let article of articles) {
     const articleId = article.getAttribute("id");
     const articleTitle = article.querySelector(opts.TitleSelector).innerHTML;
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+
+    const linkHTMLData = {id: articleId, title: articleTitle}; //sz
+    const linkHTML = templates.articleLink(linkHTMLData); //sz
+
     html = html + linkHTML;
   }
 
@@ -158,7 +167,12 @@ function generateTags(){
     const articleTagsArray = articleTags.split(' ');
 
     for (let singleTag of articleTagsArray) {
-      const linkHtml = '<li><a href="#tag-' + singleTag + '">' + singleTag + '</a></li>';
+
+      //const linkHtml = '<li><a href="#tag-' + singleTag + '">' + singleTag + '</a></li>'; ///tutaj
+
+      const linkHTMLData = {id: singleTag, title: singleTag}; //sz
+      const linkHtml = templates.tagLink(linkHTMLData); //sz
+
       html = html + linkHtml;
 
       if(!allTags.hasOwnProperty(singleTag)){
@@ -285,7 +299,10 @@ function generateAuthors(){
     const authorWrapper = article.querySelector(opts.ArticleAuthorsSelector);
     authorWrapper.innerHTML = '';
     const articleAuthor = article.getAttribute("data-author");
-    const linkHtml = '<a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>';
+
+    const linkHTMLData = {id: articleAuthor, title: articleAuthor}; //sz
+    const linkHtml = templates.authorLink(linkHTMLData); //sz
+
     authorWrapper.innerHTML = linkHtml;
 
     if(!allAuthors.hasOwnProperty(articleAuthor)){
