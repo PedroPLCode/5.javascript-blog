@@ -11,7 +11,6 @@ const optArticleSelector = '.post',
   optCloudClassPrefix = 'tag-size-';
 
 
-
 /**
  * Remove class 'active' from all article links,
  * add class 'active' to the clicked link,
@@ -96,13 +95,15 @@ function calculateTagsParams(tags) {
     if (tags[tag] < params.min) {
       params.min = tags[tag];
     }
-
   }
 
   return params;
 }
 
 
+/**
+ *
+ */
 function calculateTagClass(count, params) {
   const normalizedCount = count - params.min;
   const normalizedMax = params.max - params.min;
@@ -133,7 +134,7 @@ function calculateTagClass(count, params) {
 */
 function generateTags(){
   const articles = document.querySelectorAll(optArticleSelector);
-  let allTags = {}; //nowe
+  let allTags = {};
 
   for (let article of articles) {
     const tagsWrapper = article.querySelector(optArticleTagsSelector);
@@ -146,29 +147,30 @@ function generateTags(){
       const linkHtml = '<li><a href="#tag-' + singleTag + '">' + singleTag + '</a></li>';
       html = html + linkHtml;
 
-      if(!allTags.hasOwnProperty(singleTag)){ //nowe
-        allTags[singleTag] = 1; //nowe
+      if(!allTags.hasOwnProperty(singleTag)){
+        allTags[singleTag] = 1;
       } else {
-        allTags[singleTag]++; //nowe
+        allTags[singleTag]++;
       }
     }
 
     tagsWrapper.innerHTML = html;
   }
 
-  const tagList = document.querySelector(optTagsListSelector); //nowe
-  //tagList.innerHTML = allTags.join(' '); //nowe
-  //console.log(allTags);
-  let allTagsHtml = ''; //nowe
-  const tagsParams = calculateTagsParams(allTags); //nowe
-  console.log('tagsParams: ', tagsParams); //nowe
+  const tagList = document.querySelector(optTagsListSelector);
+  let allTagsHtml = '';
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams: ', tagsParams);
 
-  for (let singleTag in allTags) { //nowe
-    const tagLinkHtml = '<li><a href="#tag-' + singleTag + '" class="' + calculateTagClass(allTags[singleTag], tagsParams) + '">' + singleTag + '</a></li>'; //nowe
-    //const tagLinkHtml = '<li class="' + calculateTagClass(allTags[singleTag], tagsParams) + '"><a href="#tag-' + singleTag + '>' + singleTag + '</a></li>'; //nowe
-    allTagsHtml += tagLinkHtml; //nowe
-  } //nowe
-  tagList.innerHTML = allTagsHtml; //nowe
+  for (let singleTag in allTags) {
+    const tagLinkHtml = '<li><a href="#tag-' + singleTag + '" class="' + calculateTagClass(allTags[singleTag], tagsParams) + '">' + singleTag + '</a></li>';
+    allTagsHtml += tagLinkHtml;
+  }
+
+  const lastLinkHtml = '<li><a href="#tag-all" class="tag-size-5">All Tags</a></li>';
+  allTagsHtml += lastLinkHtml;
+
+  tagList.innerHTML = allTagsHtml;
 }
 
 
@@ -201,13 +203,31 @@ function tagClickHandler(event){
     activeTagLink.classList.remove('active');
   }
 
+  const activeTags = document.querySelectorAll('.tags a');
+
+  for (let activeTag of activeTags) {
+    activeTag.classList.remove('active');
+  }
+
+  const activeAuthors = document.querySelectorAll('.authors a');
+
+  for (let activeAuthor of activeAuthors) {
+    activeAuthor.classList.remove('active');
+  }
+
   const tagLinks = document.querySelectorAll('a[href="' + href + '"]');
 
   for (let tagLink of tagLinks) {
     tagLink.classList.add('active');
   }
 
-  generateTitleLinks('[data-tags~="' + tag + '"]');
+  if (tag == 'all') {
+    console.log('all');
+    generateTitleLinks();
+  } else {
+    console.log(tag);
+    generateTitleLinks('[data-tags~="' + tag + '"]');
+  }
 }
 
 
@@ -241,7 +261,7 @@ function generateAuthors(){
 
   let allAuthorsHtml = '';
 
-  let allAuthors = {}; //nowe
+  let allAuthors = {};
 
   for (let article of articles) {
     const authorWrapper = article.querySelector(optArticleAuthorsSelector);
@@ -250,16 +270,23 @@ function generateAuthors(){
     const linkHtml = '<a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>';
     authorWrapper.innerHTML = linkHtml;
 
-    const singleLinkHtml = '<li><a href="#author-' + articleAuthor + '"><span class="author-name">' + articleAuthor + '</span></a></li>';
-    //console.log(allAuthorsHtml);
-
-    if(!allAuthors.hasOwnProperty(singleLinkHtml)){ //nowe
-      allAuthorsHtml += singleLinkHtml;
-      allAuthors.articleAuthor = singleLinkHtml; // TU POPRAWIĆ
+    if(!allAuthors.hasOwnProperty(articleAuthor)){
+      allAuthors[articleAuthor] = 1;
+    } else {
+      allAuthors[articleAuthor]++;
     }
-
-    authorsList.innerHTML = allAuthorsHtml;
   }
+
+  for (let articleAuthor in allAuthors) {
+    const singleLinkHtml = '<li><a href="#author-' + articleAuthor + '"><span class="author-name">' + articleAuthor + ' (' + allAuthors[articleAuthor] + ') </span></a></li>';
+
+    allAuthorsHtml += singleLinkHtml;
+  }
+
+  const lastLinkHtml = '<li><a href="#author-all"><span class="author-name">Show all articles</span></a></li>';
+  allAuthorsHtml += lastLinkHtml;
+
+  authorsList.innerHTML = allAuthorsHtml;
 }
 
 
@@ -292,13 +319,30 @@ function authorClickHandler(event){
     activeAuthorLink.classList.remove('active');
   }
 
+  const activeAuthors = document.querySelectorAll('.authors a');
+
+  for (let activeAuthor of activeAuthors) {
+    activeAuthor.classList.remove('active');
+  }
+
+  const activeTags = document.querySelectorAll('.tags a');
+
+  for (let activeTag of activeTags) {
+    activeTag.classList.remove('active');
+  }
+
   const authorLinks = document.querySelectorAll('a[href="' + href + '"]');
 
   for (let authorLink of authorLinks) {
     authorLink.classList.add('active');
   }
 
-  generateTitleLinks('[data-author="' + author + '"]');
+  if (author == 'all') {
+    console.log('all');
+    generateTitleLinks();
+  } else {
+    generateTitleLinks('[data-author="' + author + '"]');
+  }
 }
 
 
