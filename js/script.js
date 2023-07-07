@@ -30,8 +30,8 @@ const select = {
   },
   listOf: {
     titles: '.titles',
-    tags: '.tags', //.list
-    authors: '.authors', //.list
+    tags: '.tags',
+    authors: '.authors',
   },
 };
 
