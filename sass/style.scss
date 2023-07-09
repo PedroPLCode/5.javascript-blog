@@ -67,7 +67,7 @@ body {
 /* Layout */
 
 .wrapper {
-  height: 100%;
+  height: 590px;
   display: flex;
   margin-left: 10px;
 }
@@ -76,8 +76,16 @@ body {
   flex: 1 0 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+}
+
+.sidebar:first-of-type {
+  justify-content: center;
+}
+
+.sidebar:last-of-type {
+  padding-top: 60px;
 }
 
 .posts {
@@ -189,13 +197,39 @@ body {
 /* Show all link */
 
 .show-all {
+  position: relative;
   text-decoration: none;
   color: $color-dark;
-  transition: $transition-fast;
+  width: 100%;
+  min-height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p:first-of-type {
+    position: absolute;
+    transform: scale(1);
+    transition: $transition-fast;
+  }
+
+  p:last-of-type {
+    position: absolute;
+    transform: scale(0);
+    transition: $transition-fast;
+
+  }
 }
 
 .show-all:hover {
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
+
+  p:first-of-type {
+    transform: scale(0);
+  }
+
+  p:last-of-type {
+    transform: scale(1);
+  }
 }
 
 /* Posts */
