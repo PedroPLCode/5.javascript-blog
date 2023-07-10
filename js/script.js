@@ -33,7 +33,22 @@ const select = {
     tags: '.tags',
     authors: '.authors',
   },
+  left: {
+    sidebar: {
+      header: '.left-h2',
+      list: '.left-ul',
+      sleepDelay: 1000,
+    }
+  },
 };
+
+
+/**
+ * Sleep
+ */
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 
 /**
@@ -103,6 +118,7 @@ function generateTitleLinks(customSelector = ''){
   const titleList = document.querySelector(select.listOf.titles);
   titleList.innerHTML = '';
   const articles = document.querySelectorAll(select.all.articles + customSelector);
+
   let html='';
 
   for (let article of articles) {
@@ -230,7 +246,7 @@ function generateTags(){
 * END LOOP: for each found tag link
 * execute function "generateTitleLinks" with article selector as argument
 */
-function tagClickHandler(event){
+async function tagClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
@@ -261,13 +277,27 @@ function tagClickHandler(event){
     tagLink.classList.add('active');
   }
 
+  const sidebarLeftHeader = document.querySelector(select.left.sidebar.header);
+  const sidebarLeftList = document.querySelector(select.left.sidebar.list);
+  sidebarLeftHeader.style.opacity = '0';
+  sidebarLeftList.style.opacity = '0';
+  sidebarLeftHeader.style.scale = '0.5';
+  sidebarLeftList.style.scale = '0.5';
+  await sleep(select.left.sidebar.sleepDelay);
+
   if (tag == 'all') {
-    console.log('all');
+    sidebarLeftHeader.style.opacity = '1';
+    sidebarLeftList.style.opacity = '1';
+    sidebarLeftHeader.style.scale = '1';
+    sidebarLeftList.style.scale = '1';
     generateTitleLinks();
     clearMessages();
     printMessage('All Articles');
   } else {
-    console.log(tag);
+    sidebarLeftHeader.style.opacity = '1';
+    sidebarLeftList.style.opacity = '1';
+    sidebarLeftHeader.style.scale = '1';
+    sidebarLeftList.style.scale = '1';
     generateTitleLinks('[data-tags~="' + tag + '"]');
     clearMessages();
     printMessage('# ' + tag);
@@ -346,7 +376,7 @@ function generateAuthors(){
 * END LOOP: for each found author link
 * execute function "generateTitleLinks" with article selector as argument
 */
-function authorClickHandler(event){
+async function authorClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
@@ -377,6 +407,17 @@ function authorClickHandler(event){
     authorLink.classList.add('active');
   }
 
+  const sidebarLeftHeader = document.querySelector(select.left.sidebar.header);
+  const sidebarLeftList = document.querySelector(select.left.sidebar.list);
+  sidebarLeftHeader.style.opacity = '0';
+  sidebarLeftList.style.opacity = '0';
+  sidebarLeftHeader.style.scale = '0.5';
+  sidebarLeftList.style.scale = '0.5';
+  await sleep(select.left.sidebar.sleepDelay);
+  sidebarLeftHeader.style.opacity = '1';
+  sidebarLeftList.style.opacity = '1';
+  sidebarLeftList.style.scale = '1';
+  sidebarLeftHeader.style.scale = '1';
   generateTitleLinks('[data-author="' + author + '"]');
   clearMessages();
   printMessage('# ' + author);

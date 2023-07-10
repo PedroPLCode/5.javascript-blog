@@ -13,6 +13,7 @@ $font-header: 'Oswald', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
 
 $transition-fast: 0.5s all;
+$transition-medium: 1s all;
 $transition-slow: 2s all;
 
 /* Global */
@@ -82,6 +83,14 @@ body {
 
 .sidebar:first-of-type {
   justify-content: center;
+}
+
+.left-h2 {
+  transition: $transition-medium;
+}
+
+.left-ul {
+  transition: $transition-medium;
 }
 
 .sidebar:last-of-type {
